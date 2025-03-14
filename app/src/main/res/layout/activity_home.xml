@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/home_background"
+    android:padding="16dp"
+    tools:context=".ui.HomeActivity">
+
+    <!-- On garde uniquement mqttStatusTextView et on le met en haut -->
+    <TextView
+        android:id="@+id/mqttStatusTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:text="MQTT: Non connecté"
+        android:textSize="16sp"
+        android:textColor="@android:color/black"
+        android:background="@android:color/darker_gray"
+        android:padding="8dp"
+        android:layout_marginBottom="16dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_below="@id/mqttStatusTextView">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/deliveryRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:scrollbars="vertical" />
+
+    </LinearLayout>
+</RelativeLayout>
