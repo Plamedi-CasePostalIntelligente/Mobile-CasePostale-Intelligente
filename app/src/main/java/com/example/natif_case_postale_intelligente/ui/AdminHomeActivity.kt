@@ -5,75 +5,75 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.ImageView
 import android.widget.PopupMenu
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.natif_case_postale_intelligente.R
-import com.example.natif_case_postale_intelligente.viewmodel.DeliveryViewModel
-import com.example.natif_case_postale_intelligente.model.DeliveryUiState
+import com.example.natif_case_postale_intelligente.model.CityUiState
+import com.example.natif_case_postale_intelligente.viewmodel.CityViewModel
 
-class HomeActivity : AppCompatActivity() {
+class AdminHomeActivity : AppCompatActivity() {
 
-    private lateinit var deliveryRecyclerView: RecyclerView
+    private lateinit var cityRecyclerView: RecyclerView
     private lateinit var userIcon: ImageView
-    private val viewModel: DeliveryViewModel by viewModels()
+    private val viewModel: CityViewModel by viewModels()
     private lateinit var userEmail: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_home)
+        setContentView(R.layout.activity_home_admin)
 
         // Récupérer l'email depuis l'Intent
         userEmail = intent.getStringExtra("USER_EMAIL") ?: "Email non disponible"
 
-        // Initialisation des vues
-        deliveryRecyclerView = findViewById(R.id.deliveryRecyclerView)
+        // Initialiser les vues
+        cityRecyclerView = findViewById(R.id.cityRecyclerView)
         userIcon = findViewById(R.id.userIcon)
 
-        // Configuration initiale
-        deliveryRecyclerView.layoutManager = LinearLayoutManager(this)
-        deliveryRecyclerView.adapter = DeliveryAdapter(emptyList())
+        cityRecyclerView.layoutManager = LinearLayoutManager(this)
+        cityRecyclerView.adapter = CityAdapter(emptyList()) {
+            startActivity(Intent(this, DashboardAdminActivity::class.java))
+        }
 
         // Listener pour l'icône utilisateur
         userIcon.setOnClickListener {
             showUserPopupMenu()
         }
 
-        // Observation du ViewModel
-        viewModel.deliveryState.observe(this) { state ->
+        // Observer l'état du ViewModel
+        viewModel.cityState.observe(this) { state ->
             when (state) {
-                is DeliveryUiState.Idle -> { /* Rien à afficher */ }
-                is DeliveryUiState.Loading -> { /* Rien à afficher */ }
-                is DeliveryUiState.Success -> {
-                    deliveryRecyclerView.adapter = DeliveryAdapter(state.deliveries)
+                is CityUiState.Idle -> { }
+                is CityUiState.Loading -> { }
+                is CityUiState.Success -> {
+                    cityRecyclerView.adapter = CityAdapter(state.cities) {
+                        startActivity(Intent(this, DashboardAdminActivity::class.java))
+                    }
                 }
-                is DeliveryUiState.Error -> {
-                    // Afficher une erreur simple si besoin
-                    android.widget.Toast.makeText(this, "Erreur: ${state.message}", android.widget.Toast.LENGTH_LONG).show()
+                is CityUiState.Error -> {
+                    Toast.makeText(this, "Erreur: ${state.message}", Toast.LENGTH_LONG).show()
                 }
             }
         }
 
-        // Lancer la récupération des livraisons
-        viewModel.fetchDeliveries()
+        viewModel.fetchCities()
     }
 
     private fun showUserPopupMenu() {
         val popupMenu = PopupMenu(this, userIcon)
         popupMenu.menuInflater.inflate(R.menu.user_menu, popupMenu.menu)
-
-        // Mettre à jour le titre de l'item avec l'email
         popupMenu.menu.findItem(R.id.user_email).title = "Utilisateur : $userEmail"
 
-        // Gérer les clics sur les items
         popupMenu.setOnMenuItemClickListener { item ->
             when (item.itemId) {
                 R.id.logout -> {
-                    // Déconnexion : effacer les préférences et retourner à MainActivity
-                    getSharedPreferences("user_prefs", Context.MODE_PRIVATE).edit().clear().apply()
+                    // Logique de déconnexion
+                    val sharedPreferences = getSharedPreferences("user_prefs", Context.MODE_PRIVATE)
+                    sharedPreferences.edit().clear().apply()
                     startActivity(Intent(this, MainActivity::class.java))
                     finish()
                     true
@@ -82,7 +82,6 @@ class HomeActivity : AppCompatActivity() {
             }
         }
 
-        // Afficher le menu
         popupMenu.show()
     }
 }

@@ -24,5 +24,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.HomeActivity" />
+        <activity android:name=".ui.AdminHomeActivity" />
+        <activity android:name=".ui.DashboardAdminActivity" />
+        <activity android:name=".ui.AdminAccessTryActivity" />
     </application>
 </manifest>

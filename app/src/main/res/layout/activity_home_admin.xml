@@ -1,19 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/home_background"
+    android:background="@drawable/ic_mailbox1_background"
     android:padding="16dp"
-    tools:context=".ui.HomeActivity">
+    tools:context=".ui.AdminHomeActivity">
 
     <!-- Titre -->
     <TextView
-        android:id="@+id/homeTitle"
+        android:id="@+id/adminHomeTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Mes Livraisons"
+        android:text="Gestion des Villes"
         android:textSize="28sp"
         android:textColor="#333333"
         android:textStyle="bold"
@@ -33,23 +32,16 @@
         android:padding="8dp"
         android:clickable="true"
         android:focusable="true"
-        android:background="?attr/selectableItemBackgroundBorderless" />
+        android:background="?attr/selectableItemBackgroundBorderless" /> <!-- Effet ripple -->
 
-    <!-- Contenu principal -->
-    <LinearLayout
+    <!-- RecyclerView -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/cityRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:gravity="center"
-        android:layout_below="@id/homeTitle">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/deliveryRecyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:scrollbars="vertical"
-            android:scrollbarStyle="outsideOverlay"
-        android:fadeScrollbars="false" />
-    </LinearLayout>
+        android:layout_height="0dp"
+        android:layout_below="@id/adminHomeTitle"
+        android:layout_alignParentBottom="true"
+        android:scrollbars="vertical"
+        android:padding="8dp"
+        android:background="#FFFFFF" />
 </RelativeLayout>

@@ -1,4 +1,7 @@
 package com.example.natif_case_postale_intelligente.api
+import com.example.natif_case_postale_intelligente.model.AccessTry
+import com.example.natif_case_postale_intelligente.model.AccessTryResponse
+import com.example.natif_case_postale_intelligente.model.CityResponse
 import com.example.natif_case_postale_intelligente.model.LoginRequest
 import com.example.natif_case_postale_intelligente.model.LoginResponse
 import com.example.natif_case_postale_intelligente.model.DeliveryResponse
@@ -13,5 +16,11 @@ interface ApiService {
 
     @GET("api/delivery/getAllDelivery")
     suspend fun getAllDelivery():Response<DeliveryResponse>
+
+    @GET("api/city/getAllCity")
+    suspend fun getAllCities():Response<CityResponse>
+
+    @GET("api/accessTry/getAllAccessTry")
+    suspend fun getAllAccessTries():Response<AccessTryResponse>
 }
 

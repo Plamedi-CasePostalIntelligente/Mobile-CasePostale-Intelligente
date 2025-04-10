@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F5F5F5"
+    android:padding="16dp">
+
+    <!-- Bouton de retour (en haut) -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnBackToDashboard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Retour"
+        android:textColor="#FFFFFF"
+        android:textSize="14sp"
+        android:padding="8dp"
+        android:backgroundTint="#2196F3"
+        app:icon="@drawable/ic_back_arrow"
+        app:iconTint="#FFFFFF"
+        app:iconGravity="start"
+        app:cornerRadius="12dp"
+        app:rippleColor="#80FFFFFF"
+        android:layout_marginBottom="16dp"
+        android:elevation="4dp" />
+
+    <!-- Titre -->
+    <TextView
+        android:id="@+id/accessTryTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btnBackToDashboard"
+        android:text="Tentatives d'accès RFID"
+        android:textSize="24sp"
+        android:textColor="#333333"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:layout_marginBottom="16dp" />
+
+    <!-- Barre de tri -->
+    <LinearLayout
+        android:id="@+id/sortBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@id/accessTryTitle"
+        android:background="#E0E0E0"
+        android:padding="8dp"
+        android:layout_marginBottom="16dp">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/sortSuccessButton"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_weight="1"
+            android:text="Réussite"
+            android:textColor="#FFFFFF"
+            android:backgroundTint="#4CAF50"
+            android:textSize="16sp"
+            android:layout_marginEnd="4dp"
+            app:cornerRadius="8dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/sortFailureButton"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_weight="1"
+            android:text="Échec"
+            android:textColor="#FFFFFF"
+            android:backgroundTint="#F44336"
+            android:textSize="16sp"
+            android:layout_marginStart="4dp"
+            app:cornerRadius="8dp" />
+    </LinearLayout>
+
+    <!-- RecyclerView avec scrollbar -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/accessTryRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_below="@id/sortBar"
+        android:layout_above="@id/backToDashboardButton"
+        android:scrollbars="vertical"
+        android:scrollbarStyle="outsideOverlay"
+        android:fadeScrollbars="false" />
+
+    <!-- Menu du bas (fixe) -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/backToDashboardButton"
+        android:layout_width="0dp"
+        android:layout_height="72dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_weight="1"
+        android:text="Retour au tableau"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
+        android:backgroundTint="#2196F3"
+        android:padding="8dp"
+        android:elevation="4dp"
+        app:cornerRadius="0dp" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/emptyBottomButton"
+        android:layout_width="0dp"
+        android:layout_height="72dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_toEndOf="@id/backToDashboardButton"
+        android:layout_weight="1"
+        android:text=""
+        android:backgroundTint="#F44336"
+        android:padding="8dp"
+        android:elevation="4dp"
+        app:cornerRadius="0dp" />
+</RelativeLayout>

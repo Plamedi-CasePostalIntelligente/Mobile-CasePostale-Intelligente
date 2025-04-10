@@ -64,4 +64,6 @@ dependencies {
 
     // Nouvelle lib MQTT (Fusesource)
     implementation("org.fusesource.mqtt-client:mqtt-client:1.16")
+    implementation ("io.jsonwebtoken:jjwt:0.12.6")
+   // implementation ("androidx.constraintlayout:constraintlayout:2.1.4")
 }
